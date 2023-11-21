@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.awsb.remotefoodappbe.entity.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
+    User findByUserName(String name);
+
+
 }

@@ -12,5 +12,8 @@ public interface UserService {
     void updateUser(User user);
 
     List<User> getUser(List<Long> userId);
+    User findByUserName(String name);
+
+
 
 }
