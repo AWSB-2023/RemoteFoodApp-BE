@@ -6,13 +6,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class User {
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
-    private String email;
-    @OneToOne
-    private Country country;
+    private String name;
+    @Lob
+    private byte[] countryFlagImage;
 }
