@@ -3,6 +3,7 @@ package pl.awsb.remotefoodappbe.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,4 +22,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     private int enabled;
+    @ManyToMany
+    private List<Dish> favoritesDish;
 }
