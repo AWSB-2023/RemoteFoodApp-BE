@@ -21,6 +21,5 @@ public class Dish {
     private User user;
     @OneToOne
     private Country country;
-    @OneToMany
-    private List<Mark> marks;
+
 }
