@@ -1,13 +1,16 @@
 package pl.awsb.remotefoodappbe.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.awsb.remotefoodappbe.entity.CurrentUser;
 import pl.awsb.remotefoodappbe.entity.User;
 import pl.awsb.remotefoodappbe.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
@@ -21,15 +24,16 @@ public class UserController {
         userService.addUser(user);
     }
     @DeleteMapping
-    public void deleteUser(@RequestBody Long userid) {
+    public void deleteUser(@RequestParam(name = "user_id") Long userid) {
         userService.deleteUser(userid);
     }
     @PutMapping
     public void updateUser(@RequestBody User user) {
         userService.updateUser(user);
     }
-    @GetMapping
-    public List<User> getUsers(List<Long> userId) {
-        return userService.getUser(userId);
+    @GetMapping()
+    public Optional<User> getUser(@AuthenticationPrincipal CurrentUser currentUser) {
+        return userService.getUserById(currentUser.getUser().getId());
     }
+
 }

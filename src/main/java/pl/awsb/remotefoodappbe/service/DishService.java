@@ -2,6 +2,7 @@ package pl.awsb.remotefoodappbe.service;
 
 import pl.awsb.remotefoodappbe.entity.Dish;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public interface DishService {
     List<Dish> getAllDishByUserId(Long userId);
 
     List<Dish> getAllDishByCountryId(Long countryId);
-    List<Dish> getDishByPage(int offset, int limit);
+    List<Dish> getDishByPage();
+    List<Dish> getAllDishByTopRated();
+    List<Dish> getAllUserFavoritesDish(Long userId);
 
 }

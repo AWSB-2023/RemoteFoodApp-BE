@@ -5,6 +5,7 @@ import pl.awsb.remotefoodappbe.entity.Dish;
 import pl.awsb.remotefoodappbe.repository.DishRepo;
 import pl.awsb.remotefoodappbe.service.DishService;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +49,18 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> getDishByPage(int offset, int limit) {
-        return dishRepo.findDistinctTopByOrderByIdAsc(offset, limit);
+    public List<Dish> getDishByPage() {
+        return dishRepo.findAll();
+    }
+
+    @Override
+    public List<Dish> getAllDishByTopRated() {
+        return dishRepo.findTopRatedDishes();
+    }
+
+    @Override
+    public List<Dish> getAllUserFavoritesDish(Long userId) {
+        return dishRepo.findUserFavoritesDish(userId);
     }
 
 }
