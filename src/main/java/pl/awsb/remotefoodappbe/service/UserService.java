@@ -1,8 +1,10 @@
 package pl.awsb.remotefoodappbe.service;
 
+import pl.awsb.remotefoodappbe.entity.Dish;
 import pl.awsb.remotefoodappbe.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void addUser(User user);
@@ -11,8 +13,8 @@ public interface UserService {
 
     void updateUser(User user);
 
-    List<User> getUser(List<Long> userId);
     User findByUserName(String name);
+    Optional<User> getUserById(Long userId);
 
 
 

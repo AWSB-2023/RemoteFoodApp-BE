@@ -1,13 +1,17 @@
 package pl.awsb.remotefoodappbe.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pl.awsb.remotefoodappbe.entity.CurrentUser;
 import pl.awsb.remotefoodappbe.entity.Dish;
 import pl.awsb.remotefoodappbe.service.DishService;
 
+import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/dishes")
 public class DishController {
     private  final DishService dishService;
@@ -20,7 +24,7 @@ public class DishController {
         dishService.addDish(dish);
     }
     @DeleteMapping
-    public void deleteDish(@RequestBody Long dishId){
+    public void deleteDish(@RequestParam(name = "dish_id") Long dishId){
         dishService.deleteDish(dishId);
     }
     @PutMapping
@@ -28,9 +32,30 @@ public class DishController {
         dishService.updateDish(dish);
     }
     @GetMapping
-    public List<Dish> getAllDishByUserId(@RequestBody Long userId){
+    public Optional<Dish> getDishById(@RequestParam(name = "dish_id")  Long dishId){
+        return dishService.getDishById(dishId);
+    }
+
+    @GetMapping("/users")
+    public List<Dish> getAllDishByUserId(@RequestParam(name = "user_id") Long userId){
         return dishService.getAllDishByUserId(userId);
     }
 
+    @GetMapping("/countries")
+    public List<Dish> getAllDishByCountryId(@RequestParam(name = "country_id") Long countryId){
+        return dishService.getAllDishByCountryId(countryId);
+    }
+    @GetMapping("/favorites")
+    public List<Dish> getAllFavoritesDish(@AuthenticationPrincipal CurrentUser currentUser){
+        return dishService.getAllUserFavoritesDish(currentUser.getUser().getId());
+    }
+    @GetMapping("/my")
+    public List<Dish> getAllMyDish(@AuthenticationPrincipal CurrentUser currentUser){
+        return dishService.getAllDishByUserId(currentUser.getUser().getId());
+    }
+    @GetMapping("/top")
+    public List<Dish> getAllMyDish(){
+        return dishService.getAllDishByTopRated();
+    }
 
 }

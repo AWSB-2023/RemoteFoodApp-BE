@@ -11,15 +11,7 @@ import pl.awsb.remotefoodappbe.serviceimpl.SpringDataUserDetailsServiceImpl;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/","/login","user/add").permitAll()
-                .antMatchers("/event/**","/present/**","/barcodes/**").hasAnyAuthority("ROLE_USER")
-                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                .and().formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/user/")
-                .and().logout().logoutSuccessUrl("/")
-                .permitAll();
+
     }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

@@ -11,6 +11,8 @@ import pl.awsb.remotefoodappbe.service.UserService;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -44,12 +46,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUser(List<Long> userId) {
-        return userRepo.findAllById(userId);
+    public User findByUserName(String name) {
+        return userRepo.findByUsername(name);
     }
 
     @Override
-    public User findByUserName(String name) {
-        return userRepo.findByUserName(name);
+    public Optional<User> getUserById(Long userId) {
+        return userRepo.findById(userId);
     }
 }
